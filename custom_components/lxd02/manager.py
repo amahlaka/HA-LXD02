@@ -24,6 +24,7 @@ from .const import (
     DEFAULT_FEED,
     DEFAULT_SIZE,
     DOMAIN,
+    MAX_TEXT_LENGTH,
     STATUS_ERROR,
     STATUS_IDLE,
     STATUS_PRINTING,
@@ -255,6 +256,12 @@ class PrinterManager:
         if content.is_empty():
             raise ServiceValidationError(
                 "Nothing to print: fill in a title, text, QR code, icon or picture")
+        length = len(content.title) + len(content.text) + len(content.qr)
+        if length > MAX_TEXT_LENGTH:
+            # Several metres of paper; also bounds the work of rendering text
+            # that may come from outside (notify messages, automations).
+            raise ServiceValidationError(
+                f"Too much text to print: {length} characters (at most {MAX_TEXT_LENGTH})")
         try:
             return await self.hass.async_add_executor_job(self._render, content)
         except ValueError as err:

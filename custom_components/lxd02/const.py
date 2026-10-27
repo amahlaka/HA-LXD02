@@ -32,3 +32,5 @@ ATTR_COPIES = "copies"
 ATTR_ENERGY = "energy"
 ATTR_FEED = "feed"
 ATTR_LENGTH = "length"
+
+MAX_TEXT_LENGTH = 10000  # characters of title + text + QR content per receipt

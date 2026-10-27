@@ -353,6 +353,15 @@ async def test_print_action_markdown(hass: HomeAssistant, printer_entry, fake_pr
     assert len(fake_printer.jobs) == 3
 
 
+async def test_too_much_text_refused(hass: HomeAssistant, printer_entry, fake_printer) -> None:
+    with pytest.raises(ServiceValidationError, match="Too much text"):
+        await call(hass, DOMAIN, "print", {"text": "**x " * 3000})
+    with pytest.raises(ServiceValidationError, match="Too much text"):
+        await call(hass, "notify", "send_message", {"entity_id": eid(hass, "notify", "receipt"),
+                                                    "message": "y" * 10001})
+    assert fake_printer.jobs == []
+
+
 async def test_print_action_unreachable(hass: HomeAssistant, printer_entry) -> None:
     with patch("custom_components.lxd02.manager.bluetooth.async_ble_device_from_address", return_value=None):
         with pytest.raises(HomeAssistantError, match="not reachable"):
