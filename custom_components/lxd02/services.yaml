@@ -1,0 +1,76 @@
+print:
+  fields:
+    device_id:
+      selector:
+        device:
+          integration: lxd02
+    title:
+      example: "Shopping"
+      selector:
+        text:
+    text:
+      example: "Milk\nBread\nCoffee"
+      selector:
+        text:
+          multiline: true
+    qr:
+      example: "WIFI:T:WPA;S:Home;P:secret;;"
+      selector:
+        text:
+    icon:
+      selector:
+        icon:
+    image:
+      example: "/config/www/photo.jpg"
+      selector:
+        text:
+    size:
+      default: normal
+      selector:
+        select:
+          options: ["small", "normal", "large"]
+          translation_key: size
+    align:
+      default: left
+      selector:
+        select:
+          options: ["left", "center", "right"]
+          translation_key: align
+    markdown:
+      default: true
+      selector:
+        boolean:
+    copies:
+      default: 1
+      selector:
+        number:
+          min: 1
+          max: 20
+          mode: box
+    energy:
+      selector:
+        number:
+          min: 1
+          max: 6
+          mode: slider
+    feed:
+      selector:
+        number:
+          min: 0
+          max: 100
+          unit_of_measurement: mm
+          mode: box
+feed:
+  fields:
+    device_id:
+      selector:
+        device:
+          integration: lxd02
+    length:
+      default: 20
+      selector:
+        number:
+          min: 10
+          max: 200
+          unit_of_measurement: mm
+          mode: box

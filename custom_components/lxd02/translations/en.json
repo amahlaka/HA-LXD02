@@ -1,0 +1,213 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "description": "Choose the printer. Make sure it is on and not connected to the phone app.",
+        "data": {
+          "address": "Printer"
+        }
+      },
+      "bluetooth_confirm": {
+        "description": "Set up the receipt printer {name}?"
+      }
+    },
+    "abort": {
+      "already_configured": "This printer is already set up.",
+      "no_devices_found": "No LX-D02 printer found. Turn it on (it switches itself off when idle), close the phone app, and make sure Home Assistant's Bluetooth (or a Bluetooth proxy) is in range."
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "in_range": {
+        "name": "In range"
+      },
+      "paper_out": {
+        "name": "Paper out"
+      },
+      "charging": {
+        "name": "Charging"
+      },
+      "overheated": {
+        "name": "Overheated"
+      }
+    },
+    "button": {
+      "print": {
+        "name": "Print receipt"
+      },
+      "feed": {
+        "name": "Feed paper"
+      },
+      "refresh": {
+        "name": "Refresh status"
+      }
+    },
+    "image": {
+      "preview": {
+        "name": "Receipt preview"
+      }
+    },
+    "notify": {
+      "receipt": {
+        "name": "Receipt"
+      }
+    },
+    "number": {
+      "copies": {
+        "name": "Copies"
+      },
+      "energy": {
+        "name": "Print darkness"
+      },
+      "feed": {
+        "name": "Feed after printing"
+      }
+    },
+    "select": {
+      "form_size": {
+        "name": "Receipt text size",
+        "state": {
+          "small": "Small",
+          "normal": "Normal",
+          "large": "Large"
+        }
+      },
+      "form_align": {
+        "name": "Receipt text alignment",
+        "state": {
+          "left": "Left",
+          "center": "Center",
+          "right": "Right"
+        }
+      }
+    },
+    "sensor": {
+      "status": {
+        "name": "Status",
+        "state": {
+          "idle": "Idle",
+          "printing": "Printing",
+          "error": "Error"
+        }
+      },
+      "battery": {
+        "name": "Battery"
+      },
+      "receipts_printed": {
+        "name": "Receipts printed"
+      },
+      "paper_used": {
+        "name": "Paper used"
+      },
+      "last_printed": {
+        "name": "Last printed"
+      }
+    },
+    "switch": {
+      "stay_connected": {
+        "name": "Stay connected"
+      }
+    },
+    "text": {
+      "form_title": {
+        "name": "Receipt title"
+      },
+      "form_text": {
+        "name": "Receipt text"
+      },
+      "form_qr": {
+        "name": "Receipt QR code"
+      },
+      "form_icon": {
+        "name": "Receipt icon"
+      }
+    }
+  },
+  "selector": {
+    "size": {
+      "options": {
+        "small": "Small",
+        "normal": "Normal",
+        "large": "Large"
+      }
+    },
+    "align": {
+      "options": {
+        "left": "Left",
+        "center": "Center",
+        "right": "Right"
+      }
+    }
+  },
+  "services": {
+    "print": {
+      "name": "Print receipt",
+      "description": "Prints a receipt with any combination of icon, title, text, QR code and picture, stacked in that order. Leave a field empty to leave it off.",
+      "fields": {
+        "device_id": {
+          "name": "Printer",
+          "description": "Which printer; optional when only one is set up."
+        },
+        "title": {
+          "name": "Title",
+          "description": "Large centred heading."
+        },
+        "text": {
+          "name": "Text",
+          "description": "Body text in Markdown: # headings, **bold**, *italic*, ~~strike~~, `code`, - lists, - [ ] checklists, > quotes, tables, --- rules and ![picture](path). Line breaks are kept."
+        },
+        "qr": {
+          "name": "QR code",
+          "description": "Any text to encode as a QR code: a URL, Wi-Fi details, etc."
+        },
+        "icon": {
+          "name": "Icon",
+          "description": "MDI icon printed at the top, for example mdi:coffee."
+        },
+        "image": {
+          "name": "Picture",
+          "description": "Path of an image file on the Home Assistant host, scaled to the paper width. Its folder must be in allowlist_external_dirs."
+        },
+        "size": {
+          "name": "Text size",
+          "description": "Size of the title and text."
+        },
+        "align": {
+          "name": "Text alignment",
+          "description": "Alignment of the body text's paragraphs."
+        },
+        "markdown": {
+          "name": "Markdown",
+          "description": "Format the text as Markdown. Turn off to print it exactly as written."
+        },
+        "copies": {
+          "name": "Copies",
+          "description": "Number of receipts to print."
+        },
+        "energy": {
+          "name": "Darkness",
+          "description": "1 (light) to 6 (dark); overrides the printer's Print darkness setting."
+        },
+        "feed": {
+          "name": "Feed",
+          "description": "Extra blank paper after the receipt in mm, on top of the 10 mm the printer always feeds; overrides the Feed after printing setting."
+        }
+      }
+    },
+    "feed": {
+      "name": "Feed paper",
+      "description": "Advances blank paper.",
+      "fields": {
+        "device_id": {
+          "name": "Printer",
+          "description": "Which printer; optional when only one is set up."
+        },
+        "length": {
+          "name": "Length",
+          "description": "How much paper comes out, in mm. At least 10 mm: the printer feeds that much by itself after every job."
+        }
+      }
+    }
+  }
+}
